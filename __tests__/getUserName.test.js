@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { getUserName } from "../js/Utils/storage.js";
+import { getUsername } from "../js/Utils/storage.js";
 
 describe("getUserName", () => {
   beforeEach(() => {
@@ -16,12 +16,12 @@ describe("getUserName", () => {
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.getItem.mockReturnValueOnce(JSON.stringify(user));
 
-    expect(getUserName()).toBe("John");
+    expect(getUsername()).toBe("John");
   });
 
   it("returns null when no user exists in storage", () => {
     localStorage.getItem.mockReturnValueOnce(null);
 
-    expect(getUserName()).toBeNull();
+    expect(getUsername()).toBeNull();
   });
 });
