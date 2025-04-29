@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { getUserName } from "../js/storage.js";
+import { getUserName } from "../js/utils/storage.js";
 
 describe("getUserName", () => {
   beforeEach(() => {
