@@ -1,5 +1,3 @@
-/* eslint-env node */
-// @ts-check
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
@@ -10,7 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
   use: {
-    baseURL: "http://127.0.0.1:5500",
+    baseURL: "http://127.0.0.1:3000",
     trace: "on-first-retry",
     env: {
       MODE: "test",
@@ -19,9 +17,10 @@ export default defineConfig({
     },
   },
   webServer: {
-    command: "npx live-server ./",
-    url: "http://127.0.0.1:5500",
+    command: "npm run start",
+    url: "http://127.0.0.1:3000",
     reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000,
   },
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },

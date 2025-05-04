@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx tailwindcss -i ./css/input.css -o ./css/style.css --watch",
+    "dev": "live-server --port=3000 --no-browser --root=.",
     "prepare": "husky install",
     "test": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "start": "http-server ./ -p 3000 -c-1"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,8 @@
     "@types/node": "^22.15.3",
     "eslint": "^9.25.1",
     "globals": "^16.0.0",
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2",
     "prettier": "^3.5.3",
     "tailwindcss": "^3.4.12",
     "vitest": "^3.1.2"

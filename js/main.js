@@ -5,7 +5,7 @@ import { logoutButtonListener } from "./listeners/auth/logoutButtonListener.js";
 import { displayVenueList } from "./listeners/venues/displayVenueList.js";
 import { displayVenue } from "./listeners/venues/displayVenue.js";
 
-function initializeApp() {
+(function initializeApp() {
   createMenu();
   logoutButtonListener();
 
@@ -21,6 +21,4 @@ function initializeApp() {
   } else if (path.startsWith("/venue/")) {
     displayVenue();
   }
-}
-
-initializeApp();
+})();

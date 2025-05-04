@@ -1,10 +1,11 @@
 import { CONFIG } from "../../config.js";
 
-const isTestMode = navigator.userAgent.includes("Playwright"); // 👈 detect test
-
 export async function login(user) {
-  if (isTestMode) {
-    if (user.email === "test@example.com" && user.password === "testpassword") {
+  if (window.MODE === "test") {
+    if (
+      user.email === window.VITE_EMAIL &&
+      user.password === window.VITE_PASSWORD
+    ) {
       return { accessToken: "fakeToken", name: "Test User" };
     } else {
       throw new Error("Invalid credentials");
@@ -12,7 +13,6 @@ export async function login(user) {
   }
 
   const url = `${CONFIG.apiUrl}auth/login`;
-
   const options = {
     method: "POST",
     headers: {

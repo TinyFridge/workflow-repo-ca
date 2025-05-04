@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Workflow CA</title>
     <link rel="stylesheet" href="/css/style.css" />
-    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/main.js">
+            window.MODE = "test";
+            window.VITE_EMAIL = "test@example.com";
+            window.VITE_PASSWORD = "testpassword";
+    </script>
   </head>
   <body class="bg-gray-100">
     <header class="bg-green-800 text-white py-4">
       <nav id="menu-container" class="container mx-auto px-6"></nav>
     </header>
     <main class="container mx-auto mt-8">
+      <div id="message-container" class="mb-4"></div>
       <h1 class="text-3xl font-bold mb-4">Welcome to this site</h1>
       <div
         id="venue-container"
