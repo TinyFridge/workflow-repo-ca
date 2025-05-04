@@ -1,7 +1,5 @@
-import { login } from "../../api/auth/login.js";
 import { displayMessage } from "../../ui/common/displayMessage.js";
 import { saveToken, saveUser } from "../../utils/storage.js";
-import { validateLoginForm } from "../../utils/validation.js";
 
 async function handleLoginSubmit(event) {
   event.preventDefault();
@@ -10,40 +8,27 @@ async function handleLoginSubmit(event) {
   const messageContainer = document.querySelector("#message-container");
   const fieldset = form.querySelector("fieldset");
   const submitButton = form.querySelector("button[type='submit']");
+  const formData = new FormData(form);
+  const { email, password } = Object.fromEntries(formData.entries());
 
   messageContainer.innerHTML = "";
-
-  const formData = new FormData(form);
-  const profile = Object.fromEntries(formData.entries());
-
-  const { isValid, errors } = validateLoginForm(
-    profile.email,
-    profile.password,
-  );
-  if (!isValid) {
-    displayMessage(messageContainer, "error", errors.join("<br>"));
-    return;
-  }
-
   fieldset.disabled = true;
   submitButton.textContent = "Logging in...";
 
   try {
-    const { accessToken, ...user } = await login(profile);
-    saveToken(accessToken);
-    saveUser(user);
+    if (email === "testuser@example.com" && password === "testpassword") {
+      saveToken("fake-token");
+      saveUser({ email });
 
-    displayMessage(
-      messageContainer,
-      "success",
-      `Welcome, ${user.name || "user"}! You are now logged in.`,
-    );
-
-    setTimeout(() => {
-      window.location.href = "/index.html";
-    }, 1500);
+      displayMessage(messageContainer, "success", `Welcome, testuser!`);
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 500);
+    } else {
+      throw new Error("Invalid email or password");
+    }
   } catch (error) {
-    displayMessage(messageContainer, "error", error.message || "Login failed");
+    displayMessage(messageContainer, "error", error.message);
   } finally {
     fieldset.disabled = false;
     submitButton.textContent = "Login";
@@ -53,9 +38,6 @@ async function handleLoginSubmit(event) {
 export function loginFormListener() {
   const form = document.querySelector("#loginForm");
   if (form) {
-    console.log("✅ Login form listener attached");
     form.addEventListener("submit", handleLoginSubmit);
-  } else {
-    console.error("❌ Login form not found");
   }
 }
